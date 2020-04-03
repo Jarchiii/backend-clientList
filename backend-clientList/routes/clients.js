@@ -1,6 +1,9 @@
 var express = require('express');
 var router = express.Router();
 const clientModel = require('../models/Client');
+const uploader = require('../config/cloudinary-setup');
+
+
 
 /* CREATE a client. */
 router.post('/clients', function(req, res, next) {
@@ -9,6 +12,19 @@ router.post('/clients', function(req, res, next) {
     .then((client) => res.status(200).json(client))
     .catch(next);
   });
+
+  /* import client. */
+router.post('/clientsImport',uploader.single('fileUrl'), function(req, res, next) {
+  if (!req.file) {
+		next(new Error('No file uploaded!'));
+		return;
+	}
+
+  clientModel
+  .create(req.body)
+  .then((client) => res.status(200).json(client))
+  .catch(next);
+});
 
 /* GET clients listing. */
 router.get('/clients', function(req, res, next) {
