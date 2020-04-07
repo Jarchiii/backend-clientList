@@ -19,11 +19,12 @@ router.post('/clientsImport',uploader.single('fileUrl'), function(req, res, next
 		next(new Error('No file uploaded!'));
 		return;
 	}
-
-  clientModel
-  .create(req.body)
-  .then((client) => res.status(200).json(client))
-  .catch(next);
+  const clientList = req.file.secure_url
+  console.log(clientList)
+  // clientModel
+  // .create(req.body)
+  // .then((client) => res.status(200).json(client))
+  // .catch(next);
 });
 
 /* GET clients listing. */
