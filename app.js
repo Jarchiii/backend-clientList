@@ -51,7 +51,7 @@ app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 //Cors
 // this rule allows the client app to exchange via http via the server (AJAX ... Axios)
 const corsOptions = {
-  origin: "http://localhost:4000",
+  origin: process.env.CLIENT_URL,
   credentials : true,
 
 
