@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 const clientModel = require('../models/Client');
 const uploader = require('../config/cloudinary-setup');
+const fs = require('fs')
 
 
 
@@ -14,17 +15,13 @@ router.post('/clients', function(req, res, next) {
   });
 
   /* import client. */
-router.post('/clientsImport',uploader.single('fileUrl'), function(req, res, next) {
-  if (!req.file) {
-		next(new Error('No file uploaded!'));
-		return;
-	}
-  const clientList = req.file.secure_url
-  console.log(clientList)
-  // clientModel
-  // .create(req.body)
-  // .then((client) => res.status(200).json(client))
-  // .catch(next);
+router.post('/clientsImport', function(req, res, next) {
+
+ console.log("ici", req.body)
+ clientModel
+ .insertMany(req.body)
+ .then((client) => res.status(200).json(client))
+ .catch(next);
 });
 
 /* GET clients listing. */

@@ -17,7 +17,6 @@ router.post("/signup", (req, res, next) => {
     admin
   
   } = req.body;
-  console.log(req.body);
   // if (!mail || !password) errorMsg += "Provide both mail & password. \n";
   if (password.length < minPasswordLength)
     errorMsg += `Password has to be at least ${minPasswordLength}!`;
